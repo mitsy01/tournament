@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 from app.db.base import Base
-from  app.db.associative import UserTeamAssoc, TeamTournamentAssoc
+from  app.db.associative import UserTeamAssoc, Result
 
 
 class Team(Base):
@@ -17,7 +17,7 @@ class Team(Base):
     name_team: Mapped[str] = mapped_column(String(100))
     private: Mapped[bool] = mapped_column(Boolean())
     users: Mapped[List["User"]] = relationship(secondary=UserTeamAssoc.__tablename__, back_populates="teams", lazy="selectin")
-    tournaments: Mapped[List["Touranment"]] = relationship(secondary=TeamTournamentAssoc.__tablename__, back_populates="teams", lazy="selectin")
+    tournaments: Mapped[List["Touranment"]] = relationship(secondary=Result.__tablename__, back_populates="teams", lazy="selectin")
     
     
     def __init__(self, **kwargs):

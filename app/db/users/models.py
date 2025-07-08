@@ -13,7 +13,7 @@ from app.config import settings
 from app.db.associative import UserTeamAssoc
 
 
-class User(Base):
+class UserModel(Base):
     __tablename__ = "users"
     
     id: Mapped[str] = mapped_column(String(100), primary_key=True)
@@ -22,8 +22,6 @@ class User(Base):
     password_: Mapped[str] = mapped_column(String(100))
     is_active: Mapped[bool] = mapped_column(Boolean(), default=True)
     teams: Mapped[List["Team"]] = relationship(lazy="selectin", back_populates="users", secondary=UserTeamAssoc.__tablename__)
-    
-    
     
     
     def __init__(self, **kwargs):
