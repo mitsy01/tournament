@@ -13,7 +13,7 @@ from app.config import settings
 from app.db.associative import UserTeamAssoc
 
 
-class UserModel(Base):
+class User(Base):
     __tablename__ = "users"
     
     id: Mapped[str] = mapped_column(String(100), primary_key=True)
