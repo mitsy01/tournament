@@ -31,12 +31,12 @@ class User(Base):
     
     @property
     def password(self):
-        return self.passwrod_
+        return self.password_
     
     
     @password.setter
     def password(self, pwd: str):
-        self.passwrod_ = bcrypt.hashpw(pwd.encode(), bcrypt.gensalt())
+        self.password_ = bcrypt.hashpw(pwd.encode(), bcrypt.gensalt())
         
         
     def is_verify_pass(self, pwd: str):

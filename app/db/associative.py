@@ -19,7 +19,7 @@ class UserTeamAssoc(Base):
     
     
     user_id = Column(String(100), ForeignKey("users.id", ondelete="cascade", onupdate="cascade"), primary_key=True)
-    team_id = Column(String(100), ForeignKey("teams.id", ondelete="cascade", onupdate="cascade"), primart_key=True)
+    team_id = Column(String(100), ForeignKey("teams.id", ondelete="cascade", onupdate="cascade"), primary_key=True)
     role = Column(Enum(Role), default=Role.member)
     user: Mapped["User"] = relationship(lazy="selectin")
     team: Mapped["Team"] = relationship(lazy="selectin")
