@@ -47,7 +47,7 @@ class User(Base):
         if not self.is_verify_pass(pwd):
             return 
         
-        payload = dict(user_id=self.id, expire=datetime.now(timezone.utc) + timedelta(minutes=expire_time_minut))
+        payload = dict(sub=self.id, exp=datetime.now(timezone.utc) + timedelta(minutes=expire_time_minut))
         return jwt.encode(payload=payload, key=settings.secret_key, algorithm="HS256")
     
     
