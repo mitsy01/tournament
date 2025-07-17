@@ -41,7 +41,8 @@ async def sign_up(user_model: UserModel, db: Annotated[AsyncSession, Depends(get
 @users_route.post("/token/", status_code=status.HTTP_202_ACCEPTED, response_model=TokenModel, summary="Login")
 async def sign_in(form: Annotated[OAuth2PasswordRequestForm, Depends()], db: Annotated[AsyncSession, Depends(get_db)]) -> TokenModel:
     token = await db_actions.sign_in(username=form.username, password=form.password, db=db)
-    return dict(acces_token=token)
+    return dict(access_token=token)
+
     
 
 @users_route.get("/", status_code=status.HTTP_202_ACCEPTED, response_model=UserModelResponse, summary="Get user")
