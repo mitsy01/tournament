@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class TeamModel(BaseModel):
-    name: str
+    name_team: str
     private: bool
     
 
