@@ -43,7 +43,7 @@ async def get_teams(
     return await db_actions.get_teams(private=private, db=db)
 
 
-@teams_router.delete("/", status_code=status.HTTP_204_NO_CONTENT)
+@teams_router.delete("{team_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def del_team(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],

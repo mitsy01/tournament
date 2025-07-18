@@ -46,7 +46,7 @@ async def add_user_to_team_byteamlead(team_id: str, user_id: str, membder_user_i
     if not user_team_assoc or not user:
         return False
     
-    user_team_assoc.users.append(user)
+    user_team_assoc.team.users.append(user)
     await db.commit()
     return False
 
