@@ -39,4 +39,6 @@ class Result(Base):
     
     def __init__(self, **kwargs):
         self.id = uuid4().hex
+        self.vote_result = 0
+        self.result = 0
         super().__init__(**kwargs)
