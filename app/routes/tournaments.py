@@ -19,7 +19,7 @@ tournaments_router = APIRouter(prefix="/tournaments", tags=["Tournament"])
 async def create_tournament(
     tournament_model: TournamentModel,
     user_id: Annotated[str, Depends(get_user_id)],
-    db: Annotated[AsyncSession, Depends[get_db]],
+    db: Annotated[AsyncSession, Depends(get_db)],
 ):
     await db_actions.create_tournament(**tournament_model.model_dump(), db=db)
 

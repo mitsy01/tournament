@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     secret_key: str = "secret key"
     exp_time_minutes: int = 30
     
-    model_confif = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env")
     
     
 settings = Settings()

@@ -15,7 +15,7 @@ class Tournament(Base):
     __tablename__ = "tournaments"
     
     id: Mapped[str] = mapped_column(String(100), primary_key=True)
-    name_tourna: Mapped[str] = mapped_column(String(100))
+    name: Mapped[str] = mapped_column(String(100))
     expire_date: Mapped[date] = mapped_column(Date())
     teams: Mapped[List["Team"]] = relationship(secondary=Result.__tablename__, back_populates="tournaments", lazy="selectin")
     
