@@ -1,3 +1,6 @@
+from datetime import date
+
+
 from pydantic import BaseModel, Field
 
 
@@ -13,6 +16,7 @@ class TournamentModel(BaseModel):
     
 class TournamentModelResponce(TournamentModel):
     id: str
+    expire_date:date
     
     
 class VoteModel(BaseModel):

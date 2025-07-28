@@ -48,11 +48,11 @@ async def add_user_to_team_byteamlead(team_id: str, user_id: str, member_user_id
     
     user_team_assoc.team.users.append(user)
     await db.commit()
-    return False
+    return True
 
 
 async def add_user_to_team(team_id: str, user_id: str, db: AsyncSession) -> bool:
-    team: Optional[Team] = await db.scalar(select(UserTeamAssoc).filter_by(id==team_id, private=False))
+    team: Optional[Team] = await db.scalar(select(Team).filter_by(id=team_id, private=False))
     if not team:
         return False
     

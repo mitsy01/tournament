@@ -17,8 +17,8 @@ class Vote(Enum):
     down_vote = -1
 
 
-async def create_tournament(name_tourna: str, db: AsyncSession, exp_days: int=7) -> None:
-    tournament = Tournament(name_tourna=name_tourna, exp_days=exp_days)
+async def create_tournament(name_tourna: str, db: AsyncSession, expire_date: int=7) -> None:
+    tournament = Tournament(name_tourna=name_tourna, expire_date=expire_date)
     db.add(tournament)
     await db.commit()
     
