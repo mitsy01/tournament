@@ -21,12 +21,11 @@ class TournamentModelResponce(TournamentModel):
     
 class VoteModel(BaseModel):
     team_id: str
-    tournament_id: str
     vote: Vote
     
 
 class ResultModel(BaseModel):
-    team_name: str
+    name_team: str
     tournament_name: str
     result: float
     vote_result: int

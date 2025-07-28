@@ -63,11 +63,13 @@ async def add_vote(
     vote_model: VoteModel,
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
+    tournament_id: str = Path(...)
 ):
     if not await db_actions.add_vote(
         **vote_model.model_dump(),
         user_id=user_id,
-        db=db
+        db=db,
+        tournament_id=tournament_id
     ):
         raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE)
     
@@ -105,8 +107,8 @@ async def get_results(
     results_model = []
     for result in results:
         results_model.append(ResultModel(
-            team_name=result.team.name,
-            tournament_name=result.tournament.name,
+            team_name=result.team.name_team,
+            tournament_name=result.tournament.name_tourna,
             result=result.result,
             vote_result=result.vote_result
         ))
