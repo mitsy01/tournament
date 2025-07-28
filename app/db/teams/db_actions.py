@@ -40,9 +40,9 @@ async def del_team(team_id: str, user_id: str, db: AsyncSession) -> bool:
     return True
 
 
-async def add_user_to_team_byteamlead(team_id: str, user_id: str, membder_user_id: str, db: AsyncSession): 
+async def add_user_to_team_byteamlead(team_id: str, user_id: str, member_user_id: str, db: AsyncSession): 
     user_team_assoc: Optional[Team] = await db.scalar(select(UserTeamAssoc).filter_by(user_id=user_id, team_id=team_id, role=Role.teamlead))
-    user: Optional[User] = await get_user(user_id=membder_user_id, db=db)
+    user: Optional[User] = await get_user(user_id=member_user_id, db=db)
     if not user_team_assoc or not user:
         return False
     

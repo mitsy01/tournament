@@ -59,9 +59,9 @@ async def add_user_by_teamled(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
     team_id: str = Path(...),
-    memder_user_id: str = Query(...)
+    member_user_id: str = Query(...)
 ) -> None :
-    result = await db_actions.add_user_to_team_byteamlead(team_id=team_id, user_id=user_id, membder_user_id=memder_user_id, db=db)
+    result = await db_actions.add_user_to_team_byteamlead(team_id=team_id, user_id=user_id, member_user_id=member_user_id, db=db)
     if not result:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
     
