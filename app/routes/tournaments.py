@@ -15,7 +15,7 @@ from app.db.base import get_db
 tournaments_router = APIRouter(prefix="/tournaments", tags=["Tournament"])
 
 
-@tournaments_router.post("/", status_code=status.HTTP_201_CREATED)
+@tournaments_router.post("/", status_code=status.HTTP_201_CREATED, summary="Створити турнір")
 async def create_tournament(
     tournament_model: TournamentModel,
     user_id: Annotated[str, Depends(get_user_id)],
@@ -24,7 +24,7 @@ async def create_tournament(
     await db_actions.create_tournament(**tournament_model.model_dump(), db=db)
 
 
-@tournaments_router.post("/join/", status_code=status.HTTP_202_ACCEPTED)
+@tournaments_router.post("/join/", status_code=status.HTTP_202_ACCEPTED, summary="Приєднатися до турніру")
 async def join_tournament(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[str, Depends(get_db)],
@@ -40,7 +40,7 @@ async def join_tournament(
         raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Неможливо доєднатися до змагання.")
     
 
-@tournaments_router.patch("/", status_code=status.HTTP_200_OK)
+@tournaments_router.put("/{tournament_id}/", status_code=status.HTTP_200_OK, summary="Додати результат")
 async def add_result(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -55,10 +55,10 @@ async def add_result(
         result=result,
         db=db
     ):
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE)
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Неправильний Id турніру або команди.")
     
     
-@tournaments_router.patch("/{tournament_id}/", status_code=status.HTTP_202_ACCEPTED)
+@tournaments_router.patch("/{tournament_id}/", status_code=status.HTTP_202_ACCEPTED, summary="Додати голос")
 async def add_vote(
     vote_model: VoteModel,
     user_id: Annotated[str, Depends(get_user_id)],
@@ -71,10 +71,10 @@ async def add_vote(
         db=db,
         tournament_id=tournament_id
     ):
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE)
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Неправильний Id турніру.")
     
     
-@tournaments_router.get("/vote_result/", status_code=status.HTTP_200_OK)
+@tournaments_router.get("/vote_result/", status_code=status.HTTP_200_OK, summary="Подивитися результати голосування")
 async def check_vote_result(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -97,7 +97,7 @@ async def check_vote_result(
         return dict(message="За результатами голосування гравців більшість НЕ вирішила взяти участь у турнірі.")
     
     
-@tournaments_router.get("/{tournament_id}/", status_code=status.HTTP_202_ACCEPTED, response_model=List[ResultModel])
+@tournaments_router.get("/{tournament_id}/", status_code=status.HTTP_202_ACCEPTED, summary="Подитися увесь результат", response_model=List[ResultModel])
 async def get_results(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)],
@@ -116,7 +116,7 @@ async def get_results(
 
 
 
-@tournaments_router.get("/", status_code=status.HTTP_202_ACCEPTED, response_model=List[TournamentModelResponce])
+@tournaments_router.get("/", status_code=status.HTTP_202_ACCEPTED, summary="Подивитися усі турніри", response_model=List[TournamentModelResponce])
 async def get_tournaments(
     user_id: Annotated[str, Depends(get_user_id)],
     db: Annotated[AsyncSession, Depends(get_db)]
